@@ -1,10 +1,15 @@
 browser.ignoreSynchronization = true;
 
-describe("Hello World", function () {
-  it("Should have a logo", function () {
-    browser.get("https://blog.taller.net.br/");
-    var sourceImage = element(by.css('img[alt="Taller"]'));
+var helper = require("./helper");
 
-    expect(sourceImage.isDisplayed()).toBeTruthy();
+describe("Logos", function () {
+  it("Should have the blog logo", function () {
+    browser.get("https://blog.taller.net.br/");
+    helper.verifyElementPresenceByAlt("blog_Logo");
+  });
+
+  it("Should have the website logo", function () {
+    browser.get("https://www.taller.net.br/");
+    helper.verifyElementPresenceByClass("webLogo");
   });
 });
