@@ -12,4 +12,23 @@ describe("Logos", function () {
     browser.get("https://www.taller.net.br/");
     helper.verifyElementPresenceByClass("webLogo");
   });
+
+  it("Should navigate to the first blog post", function () {
+    var title = $(".tag-domain-driven-design.tag-eventstorming .entry-title a"),
+      image = $(".tag-domain-driven-design.tag-eventstorming .wp-post-image"),
+      titleInsidePost = $(".h2 a"),
+      mainContainer = $(".post-content__text");
+
+    //I used ".Then" in this case, because the "browser.get" it's a promise.
+    browser.get("https://blog.taller.net.br/").then(function () {
+      expect(title.isDisplayed()).toBeTruthy();
+      expect(image.isDisplayed()).toBeTruthy();
+
+      title.click();
+
+      expect(titleInsidePost.isDisplayed()).toBeTruthy();
+      expect(image.isPresent()).toBe(true);
+      expect(mainContainer.getText()).toContain("Guia essencial");
+    });
+  });
 });
